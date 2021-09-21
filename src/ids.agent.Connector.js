@@ -22,15 +22,15 @@ class Connector extends EventEmitter {
         super();  // REM : EventEmitter
 
         if (!id)
-            throw({'message': `ids.agent.BaseConnector : id is missing.`});
+            throw({'message': `ids.agent.Connector : id is missing.`});
         this.#id = id;
 
         if (!privateKey)
-            throw({'message': `ids.agent.BaseConnector : privateKey is missing.`});
+            throw({'message': `ids.agent.Connector : privateKey is missing.`});
         this.#privateKey = privateKey;
 
         if (!DAPS.default)
-            throw({'message': `ids.agent.BaseConnector : missing default DAPS.`});
+            throw({'message': `ids.agent.Connector : missing default DAPS.`});
         this.#daps.set('default', DAPS.default);
 
         Object.defineProperties(this, {
