@@ -4,17 +4,22 @@ const
     EventEmitter = require("events"),
     //
     util         = require('@nrd/fua.core.util'),
-    {ClientDaps} = require(path.join(util.FUA_JS_LIB, 'ids/ids.client.daps/src/ids.client.DAPS.beta.js'))
+    DAPSClient   = require('@nrd/fua.ids.client.daps')
 ;
 
 class Connector extends EventEmitter {
 
-    #id         = undefined;
-    #privateKey = undefined;
-    #daps       = new Map();
+    #id          = '';
+    #SKI         = '';
+    #AKI         = '';
+    #privateKey  = null;
+    #daps        = new Map();
+    #dapsClients = new Map();
 
     constructor({
                     'id':         id,
+                    'SKI':        SKI,
+                    'AKI':        AKI,
                     'privateKey': privateKey,
                     'DAPS':       DAPS = {'default': undefined}
                 }) {
@@ -24,6 +29,14 @@ class Connector extends EventEmitter {
         if (!id)
             throw({'message': `ids.agent.Connector : id is missing.`});
         this.#id = id;
+
+        if (!SKI)
+            throw({'message': `ids.agent.Connector : SKI is missing.`});
+        this.#SKI = SKI;
+
+        if (!AKI)
+            throw({'message': `ids.agent.Connector : AKI is missing.`});
+        this.#AKI = AKI;
 
         if (!privateKey)
             throw({'message': `ids.agent.Connector : privateKey is missing.`});
@@ -56,6 +69,23 @@ class Connector extends EventEmitter {
         return this;
 
     } // constructor()
+
+    getClient({'daps': daps = 'default'}) {
+        try {
+            if (!this.#daps.has(daps))
+                throw new Error(`ids.agent.Connector : daps (${daps}) not found`);
+            if (!this.#dapsClients.has(daps))
+                this.#dapsClients.set(daps, new DAPSClient({
+                    dapsUrl:    this.#daps.get(daps),
+                    SKI:        this.#SKI,
+                    AKI:        this.#AKI,
+                    privateKey: this.#privateKey
+                }));
+            return this.#dapsClients.get(daps);
+        } catch (jex) {
+            throw jex;
+        } // try
+    } // getClient
 
     async selfDescription() {
         try {
