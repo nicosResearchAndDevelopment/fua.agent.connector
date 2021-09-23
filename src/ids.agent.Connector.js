@@ -10,16 +10,14 @@ const
 class Connector extends EventEmitter {
 
     #id          = '';
-    #SKI         = '';
-    #AKI         = '';
+    #SKIAKI      = '';
     #privateKey  = null;
     #daps        = new Map();
     #dapsClients = new Map();
 
     constructor({
                     'id':         id,
-                    'SKI':        SKI,
-                    'AKI':        AKI,
+                    'SKIAKI':     SKIAKI,
                     'privateKey': privateKey,
                     'DAPS':       DAPS = {'default': undefined}
                 }) {
@@ -30,13 +28,9 @@ class Connector extends EventEmitter {
             throw({'message': `ids.agent.Connector : id is missing.`});
         this.#id = id;
 
-        if (!SKI)
-            throw({'message': `ids.agent.Connector : SKI is missing.`});
-        this.#SKI = SKI;
-
-        if (!AKI)
-            throw({'message': `ids.agent.Connector : AKI is missing.`});
-        this.#AKI = AKI;
+        if (!SKIAKI)
+            throw({'message': `ids.agent.Connector : SKIAKI is missing.`});
+        this.#SKIAKI = SKIAKI;
 
         if (!privateKey)
             throw({'message': `ids.agent.Connector : privateKey is missing.`});
@@ -70,6 +64,10 @@ class Connector extends EventEmitter {
 
     } // constructor()
 
+    get SKIAKI() {
+        return this.#SKIAKI;
+    };
+
     getClient({'daps': daps = 'default'}) {
         try {
             if (!this.#daps.has(daps))
@@ -77,8 +75,7 @@ class Connector extends EventEmitter {
             if (!this.#dapsClients.has(daps))
                 this.#dapsClients.set(daps, new DAPSClient({
                     dapsUrl:    this.#daps.get(daps),
-                    SKI:        this.#SKI,
-                    AKI:        this.#AKI,
+                    SKIAKI:     this.#SKIAKI,
                     privateKey: this.#privateKey
                 }));
             return this.#dapsClients.get(daps);
