@@ -87,6 +87,7 @@ class Connector extends EventEmitter {
     async selfDescription() {
         try {
             let selfDescription_ = {
+                '@id':   this.#id,
                 '@type': "ids:SelfDescription"
             };
             return selfDescription_;
