@@ -5,6 +5,7 @@ const
     //
     util         = require('@nrd/fua.core.util'),
     uuid         = require('@nrd/fua.core.uuid'),
+    Amec         = require(`@nrd/fua.agent.amec`),
     DAPSClient   = require('@nrd/fua.ids.client.daps')
     //region ERROR CODES
 
@@ -29,9 +30,11 @@ class ErrorConnectorDapsNotFound extends Error {
 
 class Connector extends EventEmitter {
 
-    #id          = '';
-    #SKIAKI      = '';
+    #id     = '';
+    #SKIAKI = '';
+
     #privateKey  = null;
+    #amec        = null;
     #daps        = new Map();
     #dapsClients = new Map();
 
@@ -60,6 +63,8 @@ class Connector extends EventEmitter {
             throw({'message': `ids.agent.Connector : <${this.#id}> : missing default DAPS.`});
         this.#daps.set('default', DAPS.default);
 
+        this.#amec = new Amec();
+
         Object.defineProperties(this, {
             'id': {value: this.#id, enumerable: true}
         }); // Object.defineProperties(this)
@@ -85,6 +90,10 @@ class Connector extends EventEmitter {
 
     get SKIAKI() {
         return this.#SKIAKI;
+    };
+
+    get amec() {
+        return this.#amec;
     };
 
     getClient({'daps': daps = 'default'}) {
