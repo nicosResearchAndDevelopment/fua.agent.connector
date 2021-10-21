@@ -128,23 +128,25 @@ class Connector extends EventEmitter {
         } // try
     } // selfDescription
 
-    async produceDatRequestToken({'daps': daps = undefined}) {
-        try {
-            let requestToken;
-            if (!daps)
-                daps = this.#daps.get('default');
-            return requestToken;
-        } catch (jex) {
-            throw(jex);
-        } // try
-    } // produceDatRequestToken()
+    //async produceDatRequestToken({'daps': daps = undefined}) {
+    //    try {
+    //        let requestToken;
+    //        if (!daps)
+    //            daps = this.#daps.get('default');
+    //        return requestToken;
+    //    } catch (jex) {
+    //        throw(jex);
+    //    } // try
+    //} // produceDatRequestToken()
 
-    async getDAT({'daps': daps = undefined}) {
+    async getDAT({'daps': daps = 'default'}) {
         try {
-            let DAT;
-            if (!daps)
-                daps = this.#daps.get('default');
-            let requestToken = this.produceDatRequestToken({'daps': daps});
+            let
+                dapsClient = this.getClient({daps: daps}),
+                DAT
+            ;
+
+            let requestToken = await dapsClient.getDat();
             // TODO : fetch
             return DAT;
         } catch (jex) {
