@@ -37,15 +37,19 @@ class Connector extends EventEmitter {
     #amec        = null;
     #daps        = new Map();
     #dapsClients = new Map();
+    #http_agent  = null;
 
     constructor({
                     'id':         id,
                     'SKIAKI':     SKIAKI,
                     'privateKey': privateKey,
+                    'http_agent': http_agent,
                     'DAPS':       DAPS = {'default': undefined}
                 }) {
 
         super();  // REM : EventEmitter
+
+        this.#http_agent = http_agent;
 
         if (!id)
             throw({'message': `ids.agent.Connector : id is missing.`});
@@ -106,9 +110,10 @@ class Connector extends EventEmitter {
                 }));
             if (!this.#dapsClients.has(daps))
                 this.#dapsClients.set(daps, new DAPSClient({
-                    dapsUrl:    this.#daps.get(daps),
-                    SKIAKI:     this.#SKIAKI,
-                    privateKey: this.#privateKey
+                    dapsUrl:      this.#daps.get(daps),
+                    SKIAKI:       this.#SKIAKI,
+                    privateKey:   this.#privateKey,
+                    requestAgent: this.#http_agent
                 }));
             return this.#dapsClients.get(daps);
         } catch (jex) {
