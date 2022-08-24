@@ -151,7 +151,7 @@ class Connector extends EventEmitter {
                 DAT
             ;
 
-            let requestToken = await dapsClient.getDat();
+            DAT = await dapsClient.getDat();
             // TODO : fetch
             return DAT;
         } catch (jex) {
