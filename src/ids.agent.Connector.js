@@ -144,14 +144,22 @@ class Connector extends EventEmitter {
     //    } // try
     //} // produceDatRequestToken()
 
-    async getDAT({'daps': daps = 'default'}) {
+    async getDAT({
+                     'daps':      daps = 'default',
+                     'tweak_dat': tweak_dat
+                 }) {
         try {
             let
-                dapsClient = this.getClient({daps: daps}),
+                dapsClient = this.getClient({
+                    daps:      daps
+
+                }),
                 DAT
             ;
 
-            DAT = await dapsClient.getDat();
+            DAT = await dapsClient.getDat({
+                tweak_dat: tweak_dat
+            });
             // TODO : fetch
             return DAT;
         } catch (jex) {
