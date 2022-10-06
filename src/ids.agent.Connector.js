@@ -65,7 +65,12 @@ class Connector extends EventEmitter {
 
         if (!DAPS.default)
             throw({'message': `ids.agent.Connector : <${this.#id}> : missing default DAPS.`});
-        this.#daps.set('default', DAPS.default);
+        for (let [dapsKey, dapsConfig] of Object.entries({...DAPS, default: DAPS.default})) {
+            if (util.isString(dapsConfig)) dapsConfig = {dapsUrl: dapsConfig};
+            if (!util.isString(dapsConfig.dapsUrl))
+                throw new Error(`ids.agent.Connector : <${this.#id}> : missing dapsUrl in DAPS config for ${dapsKey}`);
+            this.#daps.set(dapsKey, dapsConfig);
+        }
 
         this.#amec = new Amec();
 
@@ -110,7 +115,7 @@ class Connector extends EventEmitter {
                 }));
             if (!this.#dapsClients.has(daps))
                 this.#dapsClients.set(daps, new DAPSClient({
-                    dapsUrl:      this.#daps.get(daps),
+                    ...this.#daps.get(daps),
                     SKIAKI:       this.#SKIAKI,
                     privateKey:   this.#privateKey,
                     requestAgent: this.#http_agent
@@ -151,7 +156,7 @@ class Connector extends EventEmitter {
         try {
             let
                 dapsClient = this.getClient({
-                    daps:      daps
+                    daps: daps
 
                 }),
                 DAT
