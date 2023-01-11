@@ -8,6 +8,7 @@
   ],
   "dependencies": {
     "@nrd/fua.core.util": "^1.0.0",
+    "@nrd/fua.agent.server": "^1.0.0",
     "@nrd/fua.ids.client.daps": "^1.0.0"
   },
   "devDependencies": {
