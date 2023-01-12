@@ -87,9 +87,14 @@ class ConnectorAgent extends ServerAgent {
         return this.#dapsClients.get(clientId);
     }
 
-    async getDAT({daps = 'default', tweak_dat = false}) {
-        const dapsClient = this.getDAPSClient(daps);
-        return await dapsClient.getDat({tweak_dat});
+    async getDAT({daps = 'default', tweak_dat = false, refresh = false}) {
+        const
+            client  = this.getDAPSClient(daps),
+            options = {tweak_dat},
+            dat     = refresh
+                ? await client.fetchDAT(options)
+                : await client.getDat(options)
+        return dat;
     }
 
 }
