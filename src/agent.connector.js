@@ -98,7 +98,7 @@ class ConnectorAgent extends ServerAgent {
     }
 
     async fetch(url, {...options} = {}) {
-        const access_token = await this.getDat(options);
+        const access_token = await this.getDAT(options);
         options.headers    = {
             ...options.headers,
             'Authorization': 'Bearer ' + access_token
