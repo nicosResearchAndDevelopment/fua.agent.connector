@@ -9,7 +9,8 @@
   "dependencies": {
     "@nrd/fua.core.util": "^1.0.0",
     "@nrd/fua.agent.server": "^1.0.0",
-    "@nrd/fua.ids.client.daps": "^1.0.0"
+    "@nrd/fua.ids.client.daps": "^1.0.0",
+    "node-fetch": "^2.6.2"
   },
   "devDependencies": {
     "mocha": "^8.2.1",

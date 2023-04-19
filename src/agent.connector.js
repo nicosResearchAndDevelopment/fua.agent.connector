@@ -97,6 +97,18 @@ class ConnectorAgent extends ServerAgent {
         return dat;
     }
 
+    async fetch(url, {...options} = {}) {
+        const access_token = await this.getDat(options);
+        options.headers    = {
+            ...options.headers,
+            'Authorization': 'Bearer ' + access_token
+        }
+        if (this.#httpAgent) options.agent = this.#httpAgent;
+        const response = await util.fetch(url, options);
+        if (!response.ok) throw new util.HTTPResponseError(response);
+        return response;
+    }
+
 }
 
 module.exports = ConnectorAgent;

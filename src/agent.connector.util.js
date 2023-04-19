@@ -2,7 +2,8 @@ const
     _util  = require('@nrd/fua.core.util'),
     util   = exports = module.exports = {
         ..._util,
-        assert: _util.Assert('ids.agent.connector')
+        assert: _util.Assert('ids.agent.connector'),
+        fetch:  require('node-fetch')
     },
     crypto = require('crypto'),
     events = require('events'),
