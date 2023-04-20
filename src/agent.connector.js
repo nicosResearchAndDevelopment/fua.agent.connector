@@ -99,10 +99,12 @@ class ConnectorAgent extends ServerAgent {
 
     async fetch(url, {...options} = {}) {
         const access_token = await this.getDAT(options);
+        // SEE https://github.com/International-Data-Spaces-Association/IDS-G-pre/tree/main/Communication/protocols/ids-rest/header
         options.headers    = {
             ...options.headers,
-            'Authorization': 'Bearer ' + access_token
-        }
+            // 'Authorization':     'Bearer ' + access_token,
+            'ids-securityToken': access_token
+        };
         if (this.#httpAgent) options.agent = this.#httpAgent;
         const response = await util.fetch(url, options);
         if (!response.ok) throw new util.HTTPResponseError(response);
