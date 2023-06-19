@@ -92,7 +92,7 @@ class ConnectorAgent extends ServerAgent {
             client  = this.getDAPSClient(daps),
             options = {tweak_dat},
             dat     = refresh
-                ? await client.fetchDAT(options)
+                ? await client.fetchDat(options)
                 : await client.getDat(options)
         return dat;
     }
