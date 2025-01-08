@@ -1,10 +1,10 @@
 const
-    {describe, test} = require('mocha'),
-    expect           = require('expect'),
-    ConnectorAgent   = require('../src/agent.connector.js');
+  { describe, test } = require('mocha'),
+  expect = require('expect'),
+  ConnectorAgent = require('../src/agent.connector.js');
 
-describe('ids.agent.connector', function () {
+describe('agent.connector', function () {
 
-    // TODO
+  // TODO
 
 }); // describe

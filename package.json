@@ -1,23 +1,23 @@
 {
-  "name": "@nrd/fua.ids.agent.connector",
-  "version": "1.0.1",
+  "name": "@fua/agent.connector",
+  "version": "0.0.0-dev",
   "description": "",
   "main": "src/agent.connector.js",
   "files": [
     "src/*"
   ],
   "dependencies": {
-    "@nrd/fua.core.util": "^1.0.0",
-    "@nrd/fua.agent.server": "^1.0.0",
-    "@nrd/fua.ids.client.daps": "^1.0.0",
+    "@fua/core.util": "^1.0.0",
+    "@fua/agent.server": "^1.0.0",
+    "@fua/client.daps": "^1.0.0",
     "node-fetch": "2.x"
   },
   "overrides": {
     "whatswg-url": "14.x"
   },
   "devDependencies": {
-    "mocha": "^8.2.1",
-    "expect": "^26.6.2"
+    "expect": "26.x",
+    "mocha": "10.x"
   },
   "scripts": {
     "test": "mocha"
@@ -29,8 +29,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "ssh://git@git02.int.nsc.ag:10022/research/fua/ids/agent.connector.git"
+    "url": "ssh://git@github.com:nicosResearchAndDevelopment/fua.agent.connector.git"
   },
-  "author": "spetrac@nicos-ag.com",
-  "license": "UNLICENSED"
+  "author": "Simon Petrac <pfoerdie@gmail.com>",
+  "license": "MIT"
 }
