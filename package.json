@@ -1,6 +1,6 @@
 {
   "name": "@fua/agent.connector",
-  "version": "0.0.0-dev",
+  "version": "1.0.1",
   "description": "",
   "main": "src/agent.connector.js",
   "files": [
