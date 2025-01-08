@@ -5,6 +5,8 @@ const
 
 describe('agent.connector', function () {
 
-  // TODO
+  test('develop', function() {
+    console.log(ConnectorAgent);
+  })
 
-}); // describe
+});
